@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="de.nosebrain.epiguider.service.StoreMapper">
+
+	<resultMap type="Store" id="storeResult">
+		<id		column="name"		property="name"			javaType="string" />
+		<collection property="parsers" resultMap="parserResult" />
+	</resultMap>
+	
+	<resultMap type="ParserInfo" id="parserResult">
+		<result column="parser_id" property="parserId" />
+		<result column="series_id" property="seriesId" />
+	</resultMap>
+	
+	<select id="getSavedSeries" resultMap="storeResult">
+		SELECT name, parser_id, series_id FROM series ORDER BY name
+	</select>
+	
+	<insert id="addStore" parameterType="Store">
+		INSERT INTO series (name, parser_id, series_id) VALUES (#{name}, #{parsers[0].parserId}, #{parsers[0].seriesId})
+	</insert>
+	
+	<delete id="removeStore" parameterType="Store">
+		DELETE FROM series WHERE name = #{name}, parser_id = #{parsers[0].parserId}, series_id = #{parsers[0].seriesId}
+	</delete>
+</mapper>

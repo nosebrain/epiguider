@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="de.nosebrain.epiguider.Store" alias="Store" />
+		<typeAlias type="de.nosebrain.epiguider.ParserInfo" alias="ParserInfo" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="de/nosebrain/epiguider/mapper/StoreMapper.xml" />
+	</mappers>
+</configuration>
