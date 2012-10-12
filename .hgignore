@@ -1,7 +1,8 @@
-
-syntax: regexp
-^work$
-syntax: regexp
-^src/main/webapp/WEB-INF/classes$
-syntax: regexp
-^src/main/webapp/WEB-INF/lib$
+.project
+.classpath
+.settings
+target
+src/main/webapp/WEB-INF/classes
+src/main/webapp/WEB-INF/lib
+work
+.tomcatplugin
