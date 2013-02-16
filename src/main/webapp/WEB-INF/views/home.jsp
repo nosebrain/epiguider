@@ -4,6 +4,7 @@
 	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:spring="http://www.springframework.org/tags"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<jsp:directive.page contentType="text/html; charset=utf-8"
 		language="java" pageEncoding="UTF-8" session="true" />
@@ -12,9 +13,9 @@
 		<head>
 			<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 			<title>Epiguider</title>
-			<c:url var="assetsPath" value="/assets" />
+			<c:set var="assetsPath" value="${pageContext.request.contextPath}/assets" />
 			<link rel="stylesheet/less" type="text/css" href="${assetsPath}/libraries/bootstrap/less/bootstrap.less" />
-			<link rel="stylesheet/css" type="text/css" href="${assetsPath}/css/main.css" />
+			<link rel="stylesheet" type="text/css" href="${assetsPath}/css/main.css" />
 			<script src="${assetsPath}/libraries/jquery/jquery.js" type="text/javascript"><!--keep me --></script>
 			<script src="${assetsPath}/libraries/bootstrap/js/bootstrap-tab.js" type="text/javascript"><!--keep me --></script>
 			<script src="${assetsPath}/libraries/bootstrap/js/bootstrap-modal.js" type="text/javascript"><!--keep me --></script>
@@ -29,18 +30,16 @@
 	                    <li><a href="#addParser" data-toggle="modal"><i class="icon-plus"><!-- keep me --></i></a></li>
                   	</ul>
 					<form class="navbar-search">
-						<input type="text" class="search-query" placeholder="Search" />
+						<input type="text" id="showSearch" class="search-query" placeholder="Search" />
 					</form>
-					<!-- 
 					<a class="brand pull-right" href="#">Epiguider</a>
-					 -->
 					<span class="label label-info pull-left" id="info-label" style="margin:10px;"><!-- keep me --></span>
 				</div>
 			</div>
 			<div class="container" id="list">
-				<ul>
+				<ul id="shows">
 					<c:forEach var="store" items="${stores}">
-						<li>
+						<li data-name="${store.name}">
 							<c:forEach var="parserInfo" items="${store.parsers}" varStatus="status">
 								<c:url var="link" value="/${store.name}">
 									<c:param name="parserId" value="${parserInfo.parserId}" />
@@ -54,7 +53,7 @@
 										<a href="${link}" class="seriesDetails">${parserInfo.parserId}</a>	
 									</c:otherwise>
 								</c:choose>
-								<a href="#delete" class="btn btn-mini">Delete</a>
+								<a href="#delete" class="deleteButton btn btn-mini">Delete</a>
 							</c:forEach>
 						</li>
 					</c:forEach>

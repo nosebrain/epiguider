@@ -33,4 +33,20 @@ $(function() {
 	    $(this).parent().parent().find('form').submit();
 	    return false;
 	});
+	
+	$('#showSearch').keyup(function(){ 
+		var value = $(this).attr("value").toLowerCase();
+	    if (value == "") {
+	      $("#shows li").show();
+	    } else {
+	      $("#shows li").each(function() {
+	        var id = $(this).data('name').toLowerCase();
+	        if (id.indexOf(value) == -1) {
+	          $(this).slideUp('slow');
+	        } else {
+	          $(this).slideDown('slow');
+	        }
+	      });
+	    }
+	});
 });
