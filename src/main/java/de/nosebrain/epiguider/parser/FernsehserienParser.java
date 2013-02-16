@@ -1,6 +1,8 @@
 package de.nosebrain.epiguider.parser;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,6 +18,7 @@ import de.nosebrain.epiguider.model.Series;
 @Component
 public class FernsehserienParser implements SeriesParser {
   private static final String URL = "http://www.fernsehserien.de/%s/episodenguide";
+  private static final Pattern NUMBER_PATTERN = Pattern.compile("[^0-9]*([0-9]{1,2})[^0-9]*");
   
   @Override
   public Series parse(final String id) throws IOException {
@@ -29,23 +32,29 @@ public class FernsehserienParser implements SeriesParser {
     for (final Element row : rows) {
       final Elements seasonDiv = row.select("div.gray-bar-header-left");
       if (seasonDiv.size() == 1) {
-        try {
+        final String seasonString = seasonDiv.text().trim();
+        final Matcher matcher = NUMBER_PATTERN.matcher(seasonString);
+        if (matcher.find()) {
           season = new Season();
-          final String seasonNrString = seasonDiv.text().trim().replace("Staffel", "").trim();
-          season.setNumber(Integer.parseInt(seasonNrString));
+          final String group = matcher.group(1);
+          season.setNumber(Integer.parseInt(group));
           series.addSeason(season);
-        } catch (final NumberFormatException e) {
-          // maybe a specials section TODO: handle
-          break; // TODO: quick fix
+        } else {
+          // TODO: handle case?
         }
       } else if (row.hasClass("ep-hover")) {
-        final String test = row.select(".episodenliste-episodennummer").first().text();
-        final int nr = Integer.parseInt(test);
-        final String title = row.select(".episodenliste-titel").text();
-        final Episode episode = new Episode();
-        episode.setNumber(nr);
-        episode.setTitle(title);
-        season.addEpisode(episode);
+        final Elements epiNumberSelect = row.select(".episodenliste-episodennummer");
+        if (epiNumberSelect.size() >= 3) {
+          final String test = epiNumberSelect.get(2).text();
+          final int nr = Integer.parseInt(test);
+          final String title = row.select(".episodenliste-titel").text();
+          final Episode episode = new Episode();
+          episode.setNumber(nr);
+          episode.setTitle(title);
+          season.addEpisode(episode);
+        } else {
+          // TODO: add specials
+        }
       }
     }
     return series;
