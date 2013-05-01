@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import de.nosebrain.epiguider.EpiguiderLogic;
 import de.nosebrain.epiguider.SeriesParser;
 import de.nosebrain.epiguider.Store;
 import de.nosebrain.epiguider.model.Series;
+import de.nosebrain.epiguider.service.EpiguiderLogic;
 
 @Controller
 public class MainController {
