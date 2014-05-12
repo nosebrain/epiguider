@@ -21,7 +21,7 @@ public class FernsehserienParserTest {
     final Series series = PARSER.parse("navy-cis");
     assertEquals("Navy CIS", series.getName());
     final SortedSet<Season> seasons = series.getSeasons();
-    assertEquals(10, seasons.size());
+    assertEquals(12, seasons.size());
     final Iterator<Season> iterator = seasons.iterator();
     iterator.next();
     iterator.next();
@@ -43,7 +43,13 @@ public class FernsehserienParserTest {
   @Test
   public void testParse2() throws IOException {
     final Series series = PARSER.parse("star-wars-the-clone-wars");
-    assertEquals(5, series.getSeasons().size());
+    assertEquals(6, series.getSeasons().size());
+  }
+  
+  @Test
+  public void testParse3() throws IOException {
+    final Series series = PARSER.parse("grimm");
+    assertEquals(3, series.getSeasons().size());
   }
 
 }
