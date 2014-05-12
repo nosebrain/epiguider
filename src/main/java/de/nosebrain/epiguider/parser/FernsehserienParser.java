@@ -19,7 +19,7 @@ import de.nosebrain.epiguider.model.Series;
 public class FernsehserienParser implements SeriesParser {
   private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/536.29.13 (KHTML, like Gecko) Version/6.0.4 Safari/536.29.13";
   private static final String URL = "http://www.fernsehserien.de/%s/episodenguide";
-  private static final Pattern NUMBER_PATTERN = Pattern.compile("[^0-9]*([0-9]{1,2})[^0-9]*");
+  private static final Pattern NUMBER_PATTERN = Pattern.compile("Staffel [^0-9]*([0-9]{1,2})[^0-9]*");
   
   @Override
   public Series parse(final String id) throws IOException {
@@ -41,6 +41,7 @@ public class FernsehserienParser implements SeriesParser {
           season.setNumber(Integer.parseInt(group));
           series.addSeason(season);
         } else {
+          break;
           // TODO: handle case?
         }
       } else if (row.hasClass("ep-hover")) {
