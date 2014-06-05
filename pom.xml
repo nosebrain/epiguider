@@ -71,7 +71,7 @@
 				<version>2.2</version>
 				<configuration>
 					<server>nas</server>
-					<url>http://nas.local:9090/manager/text</url>
+					<url>http://nas.local:7080/manager/text</url>
 				</configuration>
 			</plugin>
 			<plugin>
