@@ -38,8 +38,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="mainDataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	<bean id="mainDataSource" class="${database.source.class}">
+		<property name="driverClassName" value="${database.driver}" />
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.username}" />
 		<property name="password" value="${database.password}" />
