@@ -49,7 +49,7 @@ public class FernsehserienParserTest {
   @Test
   public void testParse3() throws IOException {
     final Series series = PARSER.parse("grimm");
-    assertEquals(3, series.getSeasons().size());
+    assertEquals(4, series.getSeasons().size());
   }
 
 }
