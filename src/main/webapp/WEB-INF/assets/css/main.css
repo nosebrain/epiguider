@@ -5,3 +5,53 @@
 .deleteButton {
 	margin-left: 1em;
 }
+
+.container {
+	max-width: 730px;
+}
+
+.row {
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+#shows {
+	list-style-type: none;
+}
+
+#shows span.alternative-parser {
+	padding-left: 10px;
+	font-size: 12px;
+}
+
+#season-all {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#season-all > li > ol {
+	font-weight: normal;
+	font-size: 13px;
+	padding-left: 0px;
+}
+
+#nav-seasons.affix {
+	top: 20px;
+}
+
+#nav-seasons .nav a {
+	color: #999;
+	display: block;
+	padding: 4px 20px;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+#nav-seasons .nav li.active a {
+	color: #337ab7;
+}
+
+#nav-seasons .nav li a:hover {
+	background: none;
+	color: #337ab7;
+}

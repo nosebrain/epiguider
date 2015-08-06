@@ -12,94 +12,111 @@
 	<html>
 		<head>
 			<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
 			<title>Epiguider</title>
 			<c:set var="assetsPath" value="${pageContext.request.contextPath}/assets" />
-			<link rel="stylesheet/less" type="text/css" href="${assetsPath}/libraries/bootstrap/less/bootstrap.less" />
+			<link rel="stylesheet" type="text/css" href="${assetsPath}/libraries/bootstrap/css/bootstrap.min.css" />
 			<link rel="stylesheet" type="text/css" href="${assetsPath}/css/main.css" />
 			<script src="${assetsPath}/libraries/jquery/jquery.js" type="text/javascript"><!--keep me --></script>
-			<script src="${assetsPath}/libraries/bootstrap/js/bootstrap-tab.js" type="text/javascript"><!--keep me --></script>
-			<script src="${assetsPath}/libraries/bootstrap/js/bootstrap-modal.js" type="text/javascript"><!--keep me --></script>
+			<script src="${assetsPath}/libraries/bootstrap/js/bootstrap.min.js" type="text/javascript"><!--keep me --></script>
 			<script src="${assetsPath}/js/less.js" type="text/javascript"><!--keep me --></script>
 			<script src="${assetsPath}/js/main.js" type="text/javascript"><!--keep me --></script>
 		</head>
 		<body>
-			<div class="navbar">
-				<div class="navbar-inner">
-					<ul class="nav">
-	                    <li><a href="#" id="back"><i class="icon-arrow-left-white"><!-- keep me --></i></a></li>
-	                    <li><a href="#addParser" data-toggle="modal"><i class="icon-plus"><!-- keep me --></i></a></li>
-                  	</ul>
-					<form class="navbar-search">
-						<input type="text" id="showSearch" class="search-query" placeholder="Search" />
+			<div class="container">
+				<div class="page-header">
+					<form class="pull-right" role="search">
+						<div class="form-group">
+							<input type="text" id="showSearch" placeholder="Search" />
+						</div>
 					</form>
-					<a class="brand pull-right" href="#">Epiguider</a>
-					<span class="label label-info pull-left" id="info-label" style="margin:10px;"><!-- keep me --></span>
+					<h1 id="header" class="text-muted">Epiguider</h1>
+					<span id="info-label" class="label label-info"><!-- keep me --></span>
+					<a href="#back" id="back">
+						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"><!-- keep me --></span>
+						back to tv show list
+					</a>
 				</div>
-			</div>
-			<div class="container" id="list">
-				<ul id="shows">
-					<c:forEach var="store" items="${stores}">
-						<li data-name="${store.name}">
-							<c:forEach var="parserInfo" items="${store.parsers}" varStatus="status">
-								<c:url var="link" value="/${store.name}">
-									<c:param name="parserId" value="${parserInfo.parserId}" />
-									<c:param name="seriesId" value="${parserInfo.seriesId}" />
-								</c:url>
-								<c:choose>
-									<c:when test="${status.first}">		
-										<a href="${link}" class="seriesDetails"><c:out value="${store.name}" /></a>
-									</c:when>
-									<c:otherwise>
-										<a href="${link}" class="seriesDetails">${parserInfo.parserId}</a>	
-									</c:otherwise>
-								</c:choose>
-								<a href="#delete" class="deleteButton btn btn-mini">Delete</a>
-							</c:forEach>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
-			
-			<div class="modal hide fade" id="addParser">
-  				<div class="modal-header">
-    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-    				<h3>Add parser</h3>
-  				</div>
-  				<div class="modal-body">
-  					<c:url var="addParser" value="/add" />
-  					<form:form modelAttribute="store" cssClass="form-horizontal" action="${addParser}">
-  						<div class="control-group">
-  							<form:label path="name" cssClass="control-label">Name</form:label>
-    						<div class="controls">
-      							<form:input path="name" />
-    						</div>
-  						</div>
-  						<div class="control-group">
-  							<label for="parsers[0].parserId" class="control-label">Parser</label>
-  							<div class="controls">
-  								<select id="parsers[0].parserId" name="parsers[0].parserId">
-  								<c:forEach var="parser" items="${parsers}">
-  									<option value="${parser}">${parser}</option>
-  								</c:forEach>
-  								</select>
-  							</div>
-  						</div>
-  						<div class="control-group">
-  							<label for="parsers[0].seriesId" class="control-label">Parser</label>
-  							<div class="controls">
-  								<input id="parsers[0].seriesId" name="parsers[0].seriesId" />
-  							</div>
-  						</div>
-  					</form:form>
-  				</div>
-  				<div class="modal-footer">
-    				<a href="#" class="btn" data-dismiss="modal">Close</a>
-    				<a href="#" class="btn btn-primary modal-form-submit">Add parser</a>
-  				</div>
-  			</div>
-			
-			<div class="container" id="details">
-				<!-- keep me -->
+				<div class="row" id="list">
+					<ul id="shows" class="col-lg-10">
+						<c:forEach var="store" items="${stores}">
+							<li data-name="${store.name}">
+								<c:forEach var="parserInfo" items="${store.parsers}" varStatus="status">
+									<div class="row">
+										<c:url var="link" value="/${store.name}">
+											<c:param name="parserId" value="${parserInfo.parserId}" />
+											<c:param name="seriesId" value="${parserInfo.seriesId}" />
+										</c:url>
+										<div class="col-lg-5">
+											<c:choose>
+												<c:when test="${status.first}">
+													<a href="${link}" class="seriesDetails"><c:out value="${store.name}" /></a>
+												</c:when>
+												<c:otherwise>
+													<span class="alternative-parser">using <a href="${link}" class="seriesDetails">${parserInfo.parserId}</a></span>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										
+										<div class="col-lg-2">
+											<a href="#delete" class="deleteButton btn btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"><!-- keep me --></span></a>
+										</div>
+									</div>
+								</c:forEach>
+							</li>
+						</c:forEach>
+					</ul>
+					
+					<div class="col-lg-2">
+						<button class="btn btn-default btn-xs" href="#parserModal" data-toggle="modal" data-target="#addParser">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"><!-- keep me --></span> add new show
+						</button>
+					</div>
+				</div>
+				
+				<div id="details"><!-- keep me --></div>
+				
+				<div class="modal fade" id="addParser" tabindex="-1" role="dialog" aria-labelledby="addParserLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&amp;times;</span></button>
+								<h4 class="modal-title" id="addParserLabel">Add parser</h4>
+							</div>
+							<div class="modal-body">
+								<c:url var="addParser" value="/add" />
+								<form:form modelAttribute="store" cssClass="form-horizontal" action="${addParser}">
+									<div class="control-group">
+										<form:label path="name" cssClass="control-label col-sm-2">Name</form:label>
+										<div class="col-sm-10">
+											<form:input path="name" cssClass="form-control" />
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="parsers[0].parserId" class="control-label col-sm-2">Parser ID</label>
+										<div class="col-sm-10">
+											<select id="parsers[0].parserId" name="parsers[0].parserId" class="form-control">
+											<c:forEach var="parser" items="${parsers}">
+												<option value="${parser}">${parser}</option>
+											</c:forEach>
+											</select>
+										</div>
+									</div>
+									<div class="control-group">
+										<label for="parsers[0].seriesId" class="control-label col-sm-2">Parser</label>
+										<div class="col-sm-10">
+											<input id="parsers[0].seriesId" name="parsers[0].seriesId" class="form-control" />
+										</div>
+									</div>
+								</form:form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary modal-form-submit">Add parser</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</body>
 	</html>
