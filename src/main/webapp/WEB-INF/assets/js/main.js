@@ -24,8 +24,6 @@ $(function() {
 						top: $('.page-header').height() + 50
 					}
 				});
-				
-				// $('body').scrollspy({ target: '#nav-seasons ul.nav' });
 			},
 			error: function() {
 				infoBox.text("error");

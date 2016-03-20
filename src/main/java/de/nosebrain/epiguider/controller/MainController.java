@@ -52,6 +52,8 @@ public class MainController {
   @RequestMapping(value = "/{series}")
   public String series(@RequestParam("seriesId") final String seriesId, @RequestParam("parserId") final String parser, final Model model) throws IOException {
     final Series series = this.parsers.get(parser).parse(seriesId);
+    final Store store = this.epiguiderLogic.getStore(seriesId, parser);
+    series.setName(store.getName());
     model.addAttribute("series", series);
     return "series";
   }

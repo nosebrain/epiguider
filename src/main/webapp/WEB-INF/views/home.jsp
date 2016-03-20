@@ -27,7 +27,7 @@
 				<div class="page-header">
 					<form class="pull-right" role="search">
 						<div class="form-group">
-							<input type="text" id="showSearch" placeholder="Search" />
+							<input type="text" id="showSearch" class="form-control" placeholder="Search" />
 						</div>
 					</form>
 					<h1 id="header" class="text-muted">Epiguider</h1>
@@ -38,38 +38,39 @@
 					</a>
 				</div>
 				<div class="row" id="list">
-					<ul id="shows" class="col-lg-10">
+					<div class="col-md-10 col-xs-9">
+					<ul id="shows">
 						<c:forEach var="store" items="${stores}">
-							<li data-name="${store.name}">
+							<li>
 								<c:forEach var="parserInfo" items="${store.parsers}" varStatus="status">
 									<div class="row">
 										<c:url var="link" value="/${store.name}">
 											<c:param name="parserId" value="${parserInfo.parserId}" />
 											<c:param name="seriesId" value="${parserInfo.seriesId}" />
 										</c:url>
-										<div class="col-lg-5">
+										<div class="col-md-11 col-xs-9 ${not status.first ? 'alternative-parser' : ''}">
 											<c:choose>
 												<c:when test="${status.first}">
 													<a href="${link}" class="seriesDetails"><c:out value="${store.name}" /></a>
 												</c:when>
 												<c:otherwise>
-													<span class="alternative-parser">using <a href="${link}" class="seriesDetails">${parserInfo.parserId}</a></span>
+													<span class="">using <a href="${link}" class="seriesDetails">${parserInfo.parserId}</a></span>
 												</c:otherwise>
 											</c:choose>
 										</div>
 										
-										<div class="col-lg-2">
+										<div class="col-md-1 col-xs-1">
 											<a href="#delete" class="deleteButton btn btn-xs"><span class="glyphicon glyphicon-trash" aria-hidden="true"><!-- keep me --></span></a>
 										</div>
 									</div>
 								</c:forEach>
 							</li>
 						</c:forEach>
-					</ul>
-					
-					<div class="col-lg-2">
+						</ul>
+					</div>
+					<div class="col-md-2 col-xs-1">
 						<button class="btn btn-default btn-xs" href="#parserModal" data-toggle="modal" data-target="#addParser">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"><!-- keep me --></span> add new show
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"><!-- keep me --></span> <span class="hidden-xs">add new show</span>
 						</button>
 					</div>
 				</div>
