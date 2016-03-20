@@ -31,7 +31,7 @@ public class FernsehserienParser implements SeriesParser {
     final Elements rows = site.select(".serie-content-left table tr");
     Season season = null;
     for (final Element row : rows) {
-      final Elements seasonDiv = row.select("div.gray-bar-header-left");
+      final Elements seasonDiv = row.select("h2.header-2015 a");
       if (seasonDiv.size() == 1) {
         final String seasonString = seasonDiv.text().trim();
         final Matcher matcher = NUMBER_PATTERN.matcher(seasonString);
@@ -56,7 +56,7 @@ public class FernsehserienParser implements SeriesParser {
           episode.setTitle(title);
           season.addEpisode(episode);
         } else {
-          // TODO: add specials
+          throw new IllegalStateException("web site has changed");
         }
       }
     }
