@@ -6,8 +6,10 @@ import de.nosebrain.epiguider.Store;
 
 public interface EpiguiderLogic {
   public List<Store> getSavedSeries();
-
+  
   public void add(Store store);
   
   public void remove(Store store);
+
+  public Store getStore(String seriesId, String parser);
 }

@@ -14,14 +14,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<select id="getSavedSeries" resultMap="storeResult">
-		SELECT name, parser_id, series_id FROM series ORDER BY name
+		SELECT name, parser_id, series_id
+			FROM series
+		ORDER BY name
+	</select>
+	
+	<select id="getStoreBySeriesIdAndParser" resultMap="storeResult">
+		SELECT name, parser_id, series_id
+			FROM series
+		WHERE series_id = #{seriesId}
+			AND parser_id = #{parserId}
 	</select>
 	
 	<insert id="addStore" parameterType="Store">
-		INSERT INTO series (name, parser_id, series_id) VALUES (#{name}, #{parsers[0].parserId}, #{parsers[0].seriesId})
+		INSERT INTO series (name, parser_id, series_id)
+			VALUES (#{name}, #{parsers[0].parserId}, #{parsers[0].seriesId})
 	</insert>
 	
 	<delete id="removeStore" parameterType="Store">
-		DELETE FROM series WHERE name = #{name}, parser_id = #{parsers[0].parserId}, series_id = #{parsers[0].seriesId}
+		DELETE FROM series
+		WHERE name = #{name}
+			AND parser_id = #{parsers[0].parserId}
+			AND series_id = #{parsers[0].seriesId}
 	</delete>
 </mapper>

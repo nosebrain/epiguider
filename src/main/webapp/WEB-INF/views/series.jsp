@@ -4,7 +4,7 @@
 	<jsp:directive.page contentType="text/html; charset=utf-8"
 		language="java" pageEncoding="UTF-8" session="true" />
 	<div class="row">
-		<div class="col-lg-9">
+		<div class="col-md-9">
 			<ol id="season-all">
 				<c:forEach var="season" items="${series.seasons}">
 					<li id="season_${season.number}" class="tab-pane"><h4>Season</h4>
@@ -17,7 +17,7 @@
 				</c:forEach>
 			</ol>
 		</div>
-		<div class="col-lg-3">
+		<div class="col-md-3 hidden-xs">
 			<nav id="nav-seasons">
 				<ul class="nav">
 					<c:forEach var="season" items="${series.seasons}" varStatus="status">

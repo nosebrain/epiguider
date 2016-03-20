@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.nosebrain.epiguider.Store;
+import de.nosebrain.epiguider.database.mysql.param.EpiguiderParam;
 import de.nosebrain.epiguider.service.EpiguiderLogic;
 
 @Component
@@ -21,6 +22,19 @@ public class MySQLEpiguiderLogic implements EpiguiderLogic {
     final SqlSession session = this.factory.openSession();
     try {
       return session.selectList("getSavedSeries");
+    } finally {
+      session.close();
+    }
+  }
+  
+  @Override
+  public Store getStore(final String seriesId, final String parserId) {
+    final SqlSession session = this.factory.openSession();
+    try {
+      final EpiguiderParam param = new EpiguiderParam();
+      param.setSeriesId(seriesId);
+      param.setParserId(parserId);
+      return session.selectOne("getStoreBySeriesIdAndParser", param);
     } finally {
       session.close();
     }
