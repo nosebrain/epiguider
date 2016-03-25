@@ -41,7 +41,7 @@
 					<div class="col-md-10 col-xs-9">
 					<ul id="shows">
 						<c:forEach var="store" items="${stores}">
-							<li>
+							<li data-name="${store.name}">
 								<c:forEach var="parserInfo" items="${store.parsers}" varStatus="status">
 									<div class="row">
 										<c:url var="link" value="/${store.name}">
