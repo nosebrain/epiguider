@@ -14,6 +14,12 @@
 		<spring-security.version>3.2.0.RELEASE</spring-security.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<repositories>
+		<repository>
+			<id>artifactory.nosebrain.de</id>
+			<url>http://artifactory.nosebrain.dynv6.net/artifactory/repo</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
