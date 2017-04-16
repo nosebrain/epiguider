@@ -25,38 +25,32 @@ public class FernsehserienParser implements SeriesParser {
   public Series parse(final String id) throws IOException {
     final String url = String.format(URL, id);
     final Document site = Jsoup.connect(url).userAgent(USER_AGENT).get();
-    
+    System.out.println(site.html());
     final Series series = new Series();
     series.setName(site.select(".serie-titel").text());
-    final Elements rows = site.select(".serie-content-left table tr");
-    Season season = null;
-    for (final Element row : rows) {
-      final Elements seasonDiv = row.select("h2.header-2015 a");
-      if (seasonDiv.size() == 1) {
-        final String seasonString = seasonDiv.text().trim();
+    final Elements seasonTBodys = site.select("tbody[itemprop=\"season\"]");
+    
+    for (final Element seasonTBody : seasonTBodys) {
+      final Elements seasonLink = seasonTBody.select("h2.header-2015 a");
+      if (seasonLink.size() == 1) {
+        final String seasonString = seasonLink.text().trim();
         final Matcher matcher = NUMBER_PATTERN.matcher(seasonString);
         if (matcher.find()) {
-          season = new Season();
+          final Season season = new Season();
           final String group = matcher.group(1);
           season.setNumber(Integer.parseInt(group));
           series.addSeason(season);
-        } else {
-          break;
-          // TODO: handle case?
-        }
-      } else if (row.hasClass("ep-hover")) {
-        final Elements epiNumberSelect = row.select(".episodenliste-episodennummer");
-        if (epiNumberSelect.size() >= 3) {
-          final String test = epiNumberSelect.get(2).text();
-          final int nr = Integer.parseInt(test);
-          row.select(".episodenliste-originaltitel-smartphone").remove();
-          final String title = row.select(".episodenliste-titel").text();
-          final Episode episode = new Episode();
-          episode.setNumber(nr);
-          episode.setTitle(title);
-          season.addEpisode(episode);
-        } else {
-          throw new IllegalStateException("web site has changed");
+          
+          final Elements episodeTrs = seasonTBody.select("tr[itemprop=\"episode\"]");
+          for (final Element episodeTr : episodeTrs) {
+            final String nrStr = episodeTr.select(".episodenliste-episodennummer").get(2).text();
+            final int nr = Integer.parseInt(nrStr);
+            final String title = episodeTr.select(".episodenliste-titel span[itemprop=\"name\"]").text();
+            final Episode episode = new Episode();
+            episode.setNumber(nr);
+            episode.setTitle(title);
+            season.addEpisode(episode);
+          }
         }
       }
     }
