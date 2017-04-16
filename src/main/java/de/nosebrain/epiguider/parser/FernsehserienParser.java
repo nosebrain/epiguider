@@ -18,16 +18,16 @@ import de.nosebrain.epiguider.model.Series;
 @Component
 public class FernsehserienParser implements SeriesParser {
   private static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/536.29.13 (KHTML, like Gecko) Version/6.0.4 Safari/536.29.13";
-  private static final String URL = "http://www.fernsehserien.de/%s/episodenguide";
+  private static final String URL = "https://www.fernsehserien.de/%s/episodenguide";
   private static final Pattern NUMBER_PATTERN = Pattern.compile("Staffel [^0-9]*([0-9]{1,2})[^0-9]*");
   
   @Override
   public Series parse(final String id) throws IOException {
     final String url = String.format(URL, id);
     final Document site = Jsoup.connect(url).userAgent(USER_AGENT).get();
-    System.out.println(site.html());
+
     final Series series = new Series();
-    series.setName(site.select(".serie-titel").text());
+    series.setName(site.select("li.infos h1").text());
     final Elements seasonTBodys = site.select("tbody[itemprop=\"season\"]");
     
     for (final Element seasonTBody : seasonTBodys) {
