@@ -8,3 +8,5 @@ work
 .tomcatplugin
 release.properties
 pom.xml.releaseBackup
+
+epiguider.iml
