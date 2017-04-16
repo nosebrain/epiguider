@@ -66,5 +66,11 @@ public class FernsehserienParserTest {
     final Series series = PARSER.parse("grimm");
     assertEquals(6, series.getSeasons().size());
   }
+  
+  @Test
+  public void testParse4() throws IOException {
+    final Series simpsons = PARSER.parse("die-simpsons");
+    assertEquals(28, simpsons.getSeasons().size());
+  }
 
 }

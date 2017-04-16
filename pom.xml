@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.nosebrain</groupId>
 	<artifactId>epiguider</artifactId>
@@ -17,7 +18,7 @@
 	<repositories>
 		<repository>
 			<id>artifactory.nosebrain.de</id>
-			<url>http://artifactory.nosebrain.dynv6.net/artifactory/repo</url>
+			<url>https://artifactory.nosebrain.de/artifactory/repo</url>
 		</repository>
 	</repositories>
 	<build>
@@ -77,7 +78,7 @@
 				<version>2.2</version>
 				<configuration>
 					<server>prod</server>
-					<url>http://10.0.1.152:8080/manager/text</url>
+					<url>http://nosebrain.de:8080/manager/text</url>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -100,7 +101,7 @@
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.7.2</version>
+			<version>1.10.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
