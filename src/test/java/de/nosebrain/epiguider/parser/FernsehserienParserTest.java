@@ -22,7 +22,7 @@ public class FernsehserienParserTest {
     final Series series = PARSER.parse("navy-cis");
     assertEquals("Navy CIS", series.getName());
     final SortedSet<Season> seasons = series.getSeasons();
-    assertEquals(14, seasons.size());
+    assertEquals(15, seasons.size());
     final Iterator<Season> iterator = seasons.iterator();
     iterator.next(); // 1
     iterator.next(); // 2
@@ -68,7 +68,7 @@ public class FernsehserienParserTest {
     assertEquals(6, series.getSeasons().size());
   }
 
-  @Ignore // FIXME: simpsons page can't be parseds
+  @Ignore // FIXME: simpsons page can't be parsed
   @Test
   public void testParse4() throws IOException {
     final Series simpsons = PARSER.parse("die-simpsons");
