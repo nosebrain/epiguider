@@ -26,7 +26,7 @@ $(function() {
 				});
 			},
 			error: function() {
-				infoBox.text("error");
+				infoBox.text('error');
 			}
 		});
 		return false;
@@ -36,12 +36,12 @@ $(function() {
 		$(DETAILS).empty();
 		$(INFO).show();
 		$(BACK).hide();
-		$(HEADER).text("Epiguider");
+		$(HEADER).text('Epiguider');
 	});
 	
-	$('a.modal-form-submit').click(function(e) {
+	$('.modal-form-submit').click(function(e) {
 		// find form and submit it
-		$(this).parent().parent().find('form').submit();
+		$('#store').submit();
 		return false;
 	});
 	
