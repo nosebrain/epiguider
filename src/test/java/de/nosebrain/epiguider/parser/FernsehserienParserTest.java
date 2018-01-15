@@ -68,11 +68,10 @@ public class FernsehserienParserTest {
     assertEquals(6, series.getSeasons().size());
   }
 
-  @Ignore // FIXME: simpsons page can't be parsed
   @Test
   public void testParse4() throws IOException {
     final Series simpsons = PARSER.parse("die-simpsons");
-    assertEquals(28, simpsons.getSeasons().size());
+    assertEquals(29, simpsons.getSeasons().size());
   }
 
 }
