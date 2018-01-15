@@ -24,7 +24,7 @@ public class FernsehserienParser implements SeriesParser {
   @Override
   public Series parse(final String id) throws IOException {
     final String url = String.format(URL, id);
-    final Document site = Jsoup.connect(url).userAgent(USER_AGENT).get();
+    final Document site = Jsoup.connect(url).userAgent(USER_AGENT).maxBodySize(0).get();
 
     final Series series = new Series();
     series.setName(site.select("li.infos h1").text());
