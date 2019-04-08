@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.SortedSet;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.nosebrain.epiguider.model.Episode;
@@ -22,7 +21,7 @@ public class FernsehserienParserTest {
     final Series series = PARSER.parse("navy-cis");
     assertEquals("Navy CIS", series.getName());
     final SortedSet<Season> seasons = series.getSeasons();
-    assertEquals(15, seasons.size());
+    assertEquals(16, seasons.size());
     final Iterator<Season> iterator = seasons.iterator();
     iterator.next(); // 1
     iterator.next(); // 2
@@ -71,7 +70,7 @@ public class FernsehserienParserTest {
   @Test
   public void testParse4() throws IOException {
     final Series simpsons = PARSER.parse("die-simpsons");
-    assertEquals(29, simpsons.getSeasons().size());
+    assertEquals(30, simpsons.getSeasons().size());
   }
 
 }

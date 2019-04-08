@@ -27,7 +27,7 @@ public class FernsehserienParser implements SeriesParser {
     final Document site = Jsoup.connect(url).userAgent(USER_AGENT).maxBodySize(0).get();
 
     final Series series = new Series();
-    series.setName(site.select("li.infos h1").text());
+    series.setName(site.select("li.infos h1").get(0).text());
     final Elements seasonTBodys = site.select("tbody[itemprop=\"season\"]");
     
     for (final Element seasonTBody : seasonTBodys) {
@@ -43,9 +43,9 @@ public class FernsehserienParser implements SeriesParser {
           
           final Elements episodeTrs = seasonTBody.select("tr[itemprop=\"episode\"]");
           for (final Element episodeTr : episodeTrs) {
-            final String nrStr = episodeTr.select(".episodenliste-episodennummer").get(2).text();
+            final String nrStr = episodeTr.select("a[data-event-category=\"liste-episoden\"]").get(3).text();
             final int nr = Integer.parseInt(nrStr);
-            final String title = episodeTr.select(".episodenliste-titel span[itemprop=\"name\"]").text();
+            final String title = episodeTr.select("span[itemprop=\"name\"]").text();
             final Episode episode = new Episode();
             episode.setNumber(nr);
             episode.setTitle(title);
