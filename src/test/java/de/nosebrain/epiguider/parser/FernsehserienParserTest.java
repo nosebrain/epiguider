@@ -70,7 +70,7 @@ public class FernsehserienParserTest {
   @Test
   public void testParse4() throws IOException {
     final Series simpsons = PARSER.parse("die-simpsons");
-    assertEquals(30, simpsons.getSeasons().size());
+    assertEquals(31, simpsons.getSeasons().size());
   }
 
 }
