@@ -28,7 +28,7 @@ public class FernsehserienParser implements SeriesParser {
 
     final Series series = new Series();
     series.setName(site.select("li.infos h1").get(0).text());
-    final Elements seasonTBodys = site.select("tbody[itemprop=\"season\"]");
+    final Elements seasonTBodys = site.select("tbody[itemprop=\"containsSeason\"]");
     
     for (final Element seasonTBody : seasonTBodys) {
       final Elements seasonLink = seasonTBody.select("h2.header-2015 a");
