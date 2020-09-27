@@ -27,7 +27,7 @@ public class FernsehserienParser implements SeriesParser {
     final Document site = Jsoup.connect(url).userAgent(USER_AGENT).maxBodySize(0).get();
 
     final Series series = new Series();
-    series.setName(site.select("li.infos h1").get(0).text());
+    series.setName(site.select("h1.serien-titel").get(0).text());
     final Elements seasonTBodys = site.select("tbody[itemprop=\"containsSeason\"]");
     
     for (final Element seasonTBody : seasonTBodys) {
